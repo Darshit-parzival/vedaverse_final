@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">vedaverse_final</string>
+    <string name="splash2_desc">Description of Splash2 Image</string>
+    <string name="splash1_desc">Description of Splash1 Image</string>
 </resources>
