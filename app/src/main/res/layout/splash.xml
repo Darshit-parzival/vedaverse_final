@@ -1,47 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/splashLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#28318c"
+    android:background="#297aa9"
     tools:context=".Splash">
 
-        <ImageView
-            android:id="@+id/splash2ImageView"
-            android:layout_width="200dp"
-            android:layout_height="00dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/splash2_desc"
-            android:src="@drawable/splash2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/splash1ImageView"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:contentDescription="@string/splash1_desc"
-            android:src="@drawable/splash1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/splash2ImageView" />
-
-    <TextView
-        android:id="@+id/welcomeTextView"
+    <ImageView
+        android:id="@+id/splash1ImageView"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="100dp"
-        android:text="Welcome to VedaVerse"
-        android:textColor="#FFFFFF"
-        android:textSize="39sp"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/splash1_desc"
+        android:src="@drawable/splash"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.639"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/splash1ImageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

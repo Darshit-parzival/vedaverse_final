@@ -10,7 +10,7 @@
     tools:context=".Login">
 
     <View
-        android:id="@+id/bslueBackground"
+        android:id="@+id/blueBackground"
         android:layout_width="432dp"
         android:layout_height="523dp"
         android:background="#28318c"
@@ -32,7 +32,7 @@
     <ImageView
         android:id="@+id/splash2ImageView"
         android:layout_width="200dp"
-        android:layout_height="00dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/splash2_desc"
@@ -51,32 +51,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splash2ImageView" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter phone number"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@android:color/white"/> <!-- White background color for text box -->
-
     <!-- TextView for the label -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/getStartedTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Enter phone number"
-        app:layout_constraintTop_toBottomOf="@id/editText"
+        android:text="Let's get started! Enter your mobile number"
+        app:layout_constraintTop_toBottomOf="@id/splash1ImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="#000000"/>
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:padding="16dp"/>
+
+    <LinearLayout
+        android:id="@+id/phoneInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/getStartedTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
+
+        <!-- Country code dropdown -->
+        <Spinner
+            android:id="@+id/countryCodeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <!-- EditText for entering phone number -->
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:hint="Enter phone number"
+            android:background="@android:color/white"/>
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
