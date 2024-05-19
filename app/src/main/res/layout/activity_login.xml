@@ -10,7 +10,7 @@
     tools:context=".Login">
 
     <View
-        android:id="@+id/blueBackground"
+        android:id="@+id/bslueBackground"
         android:layout_width="432dp"
         android:layout_height="523dp"
         android:background="#28318c"
