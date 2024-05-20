@@ -17,15 +17,12 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.splash);
 
         new Handler().postDelayed(() -> {
-            // Check if the user is already authenticated
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser != null) {
-                // User is already authenticated, move to Home activity
                 Intent homeIntent = new Intent(Splash.this, Home.class);
                 startActivity(homeIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
             } else {
-                // User is not authenticated, move to Login activity
                 Intent loginIntent = new Intent(Splash.this, Login.class);
                 startActivity(loginIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);

@@ -21,8 +21,14 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.vedaverse.vedaverse_final.utils.AndroidUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Account extends AppCompatActivity {
 
@@ -49,12 +55,7 @@ public class Account extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInWithGoogle();
-            }
-        });
+        btnGoogleSignIn.setOnClickListener(v -> signInWithGoogle());
     }
 
     private void signInWithGoogle() {
@@ -80,36 +81,54 @@ public class Account extends AppCompatActivity {
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<com.google.firebase.auth.AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<com.google.firebase.auth.AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            checkIfUserExists(user);
-                        } else {
-                            Log.w("Account", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(Account.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        checkIfUserExists(user);
+                    } else {
+                        Log.w("Account", "signInWithCredential:failure", task.getException());
+                        AndroidUtil.showToast(getApplicationContext(),"Authentication Failed.");
                     }
                 });
     }
 
     private void checkIfUserExists(FirebaseUser user) {
-        db.collection("users").document(user.getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        if (user != null) {
+            final String userId = user.getUid();
+            final String userName = user.getDisplayName();
+            final String userEmail = user.getEmail();
+
+            DocumentReference userRef = db.collection("users").document(userId);
+            userRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        redirectToHome();
+                    } else {
+                        createUserDocument(userId, userName, userEmail);
+                    }
+                } else {
+                    Log.d("Account", "get failed with ", task.getException());
+                }
+            });
+        }
+    }
+
+    private void createUserDocument(String userId, String userName, String userEmail) {
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("name", userName);
+        userMap.put("email", userEmail);
+        userMap.put("phone", ""); // Initial empty phone field
+
+        db.collection("users").document(userId)
+                .set(userMap, SetOptions.merge())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                // User exists, redirect to Home activity
-                                redirectToHome();
-                            } else {
-                                // User does not exist, redirect to Number activity
-                                redirectToNumberActivity();
-                            }
+                            redirectToNumberActivity();
                         } else {
-                            Log.d("Account", "get failed with ", task.getException());
+                            Log.d("Account", "Document creation failed", task.getException());
                         }
                     }
                 });

@@ -5,27 +5,13 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.vedaverse.vedaverse_final.utils.AndroidUtil;
 
 public class Home extends AppCompatActivity {
 
@@ -42,26 +28,31 @@ public class Home extends AppCompatActivity {
         if (currentUser != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
             db.collection("users")
-                    .whereEqualTo("phone", currentUser.getPhoneNumber())
+                    .document(currentUser.getUid())
                     .get()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
-                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
                             String name = documentSnapshot.getString("name");
-                            nameTextView.setText(name);
+                            if (name != null) {
+                                nameTextView.setText(name);
+                            } else {
+                                nameTextView.setText("Name not found");
+                            }
+                        } else {
+                            Log.e(TAG, "Document does not exist");
+                            nameTextView.setText("Document does not exist");
                         }
                     })
                     .addOnFailureListener(e -> {
-                        Log.e(TAG, "Error getting user documents: " + e.getMessage());
+                        Log.e(TAG, "Error getting user document: " + e.getMessage());
+                        nameTextView.setText("Error fetching name");
                     });
 
+        } else {
+            Log.d(TAG, "Current user is null");
+            nameTextView.setText("User not logged in");
         }
-        else {
-            Log.d(TAG, "Null");
-        }
-
 
         ImageButton logoutDropdownButton = findViewById(R.id.logoutDropdownButton);
 
@@ -84,5 +75,4 @@ public class Home extends AppCompatActivity {
             popupMenu.show();
         });
     }
-
 }

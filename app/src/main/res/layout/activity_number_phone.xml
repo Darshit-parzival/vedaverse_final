@@ -3,22 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#28318c"
     android:layout_height="match_parent"
     tools:context=".NumberPhone">
-
-    <TextView
-        android:id="@+id/numberPrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Please enter your phone number:"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
 
     <EditText
         android:id="@+id/phoneNumberInput"
@@ -26,23 +12,40 @@
         android:layout_height="wrap_content"
         android:hint="Phone Number"
         android:inputType="phone"
-        android:padding="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/numberPrompt"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8" />
+        android:layout_margin="16dp" />
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Submit"
-        android:padding="16dp"
+        android:text="Send Verification Code"
         app:layout_constraintTop_toBottomOf="@id/phoneNumberInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/verificationCodeInputggl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Verification Code"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/btnSubmit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnVerifyggl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify Code"
+        app:layout_constraintTop_toBottomOf="@id/verificationCodeInputggl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
