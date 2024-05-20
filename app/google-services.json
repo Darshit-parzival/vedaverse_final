@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "648786590062",
+    "project_id": "vedaverse-44f16",
+    "storage_bucket": "vedaverse-44f16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648786590062:android:2f5ea85bc6d2becb60a97f",
+        "android_client_info": {
+          "package_name": "com.vedaverse.vedaverse_final"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDddpOienZVDCa2NpC0ClHvXh58F3lEO0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
