@@ -128,6 +128,7 @@ public class NumberPhone extends AppCompatActivity {
 
     private void redirectToHome() {
         Intent intent = new Intent(NumberPhone.this, Home.class);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         startActivity(intent);
         finish();
     }

@@ -118,18 +118,15 @@ public class Account extends AppCompatActivity {
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("name", userName);
         userMap.put("email", userEmail);
-        userMap.put("phone", ""); // Initial empty phone field
+        userMap.put("phone", "");
 
         db.collection("users").document(userId)
                 .set(userMap, SetOptions.merge())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            redirectToNumberActivity();
-                        } else {
-                            Log.d("Account", "Document creation failed", task.getException());
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        redirectToNumberActivity();
+                    } else {
+                        Log.d("Account", "Document creation failed", task.getException());
                     }
                 });
     }
@@ -137,12 +134,14 @@ public class Account extends AppCompatActivity {
     private void redirectToHome() {
         Intent intent = new Intent(Account.this, Home.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         finish();
     }
 
     private void redirectToNumberActivity() {
         Intent intent = new Intent(Account.this, NumberPhone.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         finish();
     }
 }

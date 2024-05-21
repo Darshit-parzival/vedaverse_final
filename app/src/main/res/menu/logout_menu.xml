@@ -3,4 +3,10 @@
     <item
         android:id="@+id/menu_logout"
         android:title="Logout" />
+    <item
+        android:id="@+id/theme_change"
+        android:title="Dark Mode" />
+    <item
+        android:id="@+id/addcure"
+        android:title="add cure" />
 </menu>

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.vedaverse.vedaverse_final.utils.AndroidUtil;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -59,7 +61,6 @@ public class Login extends AppCompatActivity {
         signTextView.setText(spannableString);
         signTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
-
         Button btn = findViewById(R.id.btn);
         btn.setOnClickListener(v -> {
             Spinner countryCodeSpinnertosend = findViewById(R.id.countryCodeSpinner);
@@ -68,12 +69,16 @@ public class Login extends AppCompatActivity {
             String countryCode = countryCodeSpinnertosend.getSelectedItem().toString();
             String mobileNumber = mobileNumberEditText.getText().toString();
 
-            Intent intent = new Intent(Login.this, otpVerification.class);
-            intent.putExtra("COUNTRY_CODE", countryCode);
-            intent.putExtra("MOBILE_NUMBER", mobileNumber);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-            finish();
+            if (mobileNumber.isEmpty()) {
+                AndroidUtil.showToast(getApplicationContext(),"Please enter a mobile number");
+            } else {
+                Intent intent = new Intent(Login.this, otpVerification.class);
+                intent.putExtra("COUNTRY_CODE", countryCode);
+                intent.putExtra("MOBILE_NUMBER", mobileNumber);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                finish();
+            }
         });
     }
 }

@@ -162,6 +162,7 @@ public class otpVerification extends AppCompatActivity {
 
                                             Intent nextActivity = new Intent(otpVerification.this, Home.class);
                                             startActivity(nextActivity);
+                                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                                             finish();
                                         })
                                         .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
@@ -171,7 +172,6 @@ public class otpVerification extends AppCompatActivity {
                     } else {
                         Log.e(TAG, "signInWithCredential:failure", task.getException());
                         Toast.makeText(otpVerification.this, "Verification Failed", Toast.LENGTH_LONG).show();
-
                     }
                 });
     }
